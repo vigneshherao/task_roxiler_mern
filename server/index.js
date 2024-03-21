@@ -24,6 +24,14 @@ app.get("/initData",async (req,res)=>{
 
 
 
+app.get("/hai",async(req,res)=>{
+    try {
+        const lists =await RoxilerData.find();
+        res.json(lists)
+    } catch (error) {
+        
+    }
+})
 
 
 

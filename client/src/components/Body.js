@@ -1,15 +1,34 @@
-import React from 'react'
-import Table from './Table'
+import React, { useState, useEffect } from "react";
+import Table from "./Table";
+import Statitics from "./Statitics";
+import Option from "./Option";
 
 const Body = () => {
-  return (
-    <div className='w-[100%] md:w-[80%]'>
-        <div className='w-32 h-32 bg-slate-100 rounded-full flex items-center m-auto'>
-            <h4 className='text-center font-bold text-gray-700'>Transaction Dashboard</h4>
-        </div>
-        <Table/>
-    </div>
-  )
-}
+  const [info, setInfo] = useState([]);
 
-export default Body
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    const response = await fetch("http://localhost:3000/hai");
+    const datajson = await response.json();
+    setInfo(datajson);
+    console.log(datajson);
+  };
+
+  return (
+    <div className="w-[100%] md:w-[80%]">
+      <div className="w-32 h-32 bg-slate-100 rounded-full flex items-center m-auto">
+        <h4 className="text-center font-bold text-gray-700">
+          Transaction Dashboard
+        </h4>
+      </div>
+      <Option />
+      <Table data={info} />
+      <Statitics data={info} />
+    </div>
+  );
+};
+
+export default Body;
