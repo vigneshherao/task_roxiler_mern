@@ -1,8 +1,10 @@
+import Body from "./components/Body";
+
 
 function App() {
   return (
-    <div className="App">
-      <h2 className="text-red-700 font-bold">Hai</h2>
+    <div className="flex justify-center mt-5">
+      <Body />
     </div>
   );
 }
