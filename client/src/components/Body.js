@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import Statitics from "./Statitics";
 import Option from "./Option";
+import BarCharts from "./BarCharts";
 
 const Body = () => {
   const [info, setInfo] = useState([]);
@@ -26,6 +27,7 @@ const Body = () => {
       <Option/>
       <Table data={info} />
       <Statitics data={info} />
+      <BarCharts/>
     </div>
   );
 };
