@@ -11,10 +11,9 @@ const Body = () => {
   }, []);
 
   const fetchData = async () => {
-    const response = await fetch("http://localhost:3000/hai");
+    const response = await fetch("http://localhost:3000/list");
     const datajson = await response.json();
     setInfo(datajson);
-    console.log(datajson);
   };
 
   return (
@@ -24,7 +23,7 @@ const Body = () => {
           Transaction Dashboard
         </h4>
       </div>
-      <Option />
+      <Option/>
       <Table data={info} />
       <Statitics data={info} />
     </div>

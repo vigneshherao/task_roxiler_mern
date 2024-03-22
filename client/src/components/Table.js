@@ -3,6 +3,7 @@ import Pagination from "./Pagination";
 import TableRow from "./TableRow";
 
 const Table = ({ data }) => {
+
   const headings = [
     "ID",
     "Title",
@@ -19,14 +20,14 @@ const Table = ({ data }) => {
         <table className="table-auto w-full border border-black bg-cyan-100 mt-3">
           <thead>
             <tr>
-              {headings.map((head) => (
-                <th className="border border-black">{head}</th>
+              {headings.map((head,index) => (
+                <th key={index} className="border border-black">{head}</th>
               ))}
             </tr>
           </thead>
           <tbody>
             {data.map((item) => {
-              return <TableRow item={item} />;
+              return <TableRow item={item} key={item.id} />;
             })}
           </tbody>
         </table>
