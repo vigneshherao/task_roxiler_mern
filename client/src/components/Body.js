@@ -3,6 +3,7 @@ import Table from "./Table";
 import Statitics from "./Statitics";
 import Option from "./Option";
 import BarCharts from "./BarCharts";
+import PieCharts from "./PieCharts";
 
 const Body = () => {
   const [info, setInfo] = useState([]);
@@ -27,7 +28,10 @@ const Body = () => {
       <Option/>
       <Table data={info} />
       <Statitics data={info} />
+      <div className="flex flex-wrap mt-10"> 
       <BarCharts/>
+      <PieCharts/>
+      </div>
     </div>
   );
 };

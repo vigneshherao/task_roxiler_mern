@@ -19,7 +19,7 @@ const BarCharts = () => {
   };
 
   return (
-    <div className="w-[100%] ">
+    <div className="w-[60%] font-bold text-center ">
       <h2>Bar Chart</h2>
       <br />
       <BarChart
