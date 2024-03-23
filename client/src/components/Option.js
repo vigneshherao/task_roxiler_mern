@@ -1,62 +1,90 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import CustomTable from "./CustomTable";
 
 const Option = () => {
   const [searchText, setSearchText] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("3");
+  const [tableData, setTableData] = useState([]);
 
-  useEffect(()=>{
-    fecthChart();
-  },[])
+  const values = [
+    { id: 1, month: "Jan" },
+    { id: 2, month: "Feb" },
+    { id: 3, month: "Mar" },
+    { id: 4, month: "Apr" },
+    { id: 5, month: "May" },
+    { id: 6, month: "Jun" },
+    { id: 7, month: "Jul" },
+    { id: 8, month: "Aug" },
+    { id: 9, month: "Sep" },
+    { id: 10, month: "Oct" },
+    { id: 11, month: "Nov" },
+    { id: 12, month: "Dec" }
+  ];
+  
 
+  useEffect(() => {
+    fetchChartData();
+  }, [selectedMonth]);
 
-  const fecthChart =async ()=>{
-    const data =await fetch("http://localhost:3000/bar-chart?month="+selectedMonth);
-    const jsonData =await data.json();
-    console.log(jsonData);
-  }
+  const fetchChartData = async () => {
+    const response = await fetch(`http://localhost:3000/list`);
+    const data = await response.json();
+    setTableData(data);
+  };
+
+  const filteredData = tableData.filter(
+    (item) =>
+      item.title.toLowerCase().includes(searchText.toLowerCase()) ||
+      item.description.toLowerCase().includes(searchText.toLowerCase()) ||
+      item.price.toString().includes(searchText.toLowerCase())
+  );
+
+  const filterDataList = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/list/month?month=${selectedMonth}`);
+      const data = await response.json();
+      setTableData(data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   return (
-    <div className="flex justify-between px-5 py-5">
-      <div>
-        <input
-          className="p-3 bg-slate-100 rounded-full text-center text-gray-700 font-semibold"
-          type="text"
-          value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
-          placeholder="Search transcation"
-        ></input>
+    <div>
+      <div className="flex justify-between px-5 py-5">
+        <div>
+          <input
+            className="p-3 bg-slate-100 rounded-full text-center text-gray-700 font-semibold"
+            type="text"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            placeholder="Search transaction"
+          />
+        </div>
+        <div>
+          <label
+            className="p-3 bg-slate-100 text-center text-gray-700 font-semibold"
+            htmlFor="months"
+          >
+            Select Month
+          </label>
+          <select
+            name="months"
+            id="months"
+            className="p-3 bg-slate-100 text-center text-gray-700 font-semibold"
+            value={selectedMonth}
+            onChange={(e) => setSelectedMonth(e.target.value)}
+          >
+            {
+              values.map((val)=>{
+                return <option key={val.id} value={val.id}>{val.month}</option>
+              })
+            }
+
+          </select>
+        </div>
       </div>
-      <div>
-        <label
-          className="p-3 bg-slate-100 text-center text-gray-700 font-semibold"
-          htmlFor="cars"
-        >
-          Select Month
-        </label>
-        <select
-          name="cars"
-          id="cars"
-          className="p-3 bg-slate-100 text-center text-gray-700 font-semibold"
-          value={selectedMonth}
-          onChange={(e) => {
-            setSelectedMonth(e.target.value);
-          }}
-        >
-          <option value="1">Jan</option>
-          <option value="2">Feb</option>
-          <option value="3">Mar</option>
-          <option value="4">Apr</option>
-          <option value="5">May</option>
-          <option value="6">Jun</option>
-          <option value="7">Jul</option>
-          <option value="8">Aug</option>
-          <option value="9">Sep</option>
-          <option value="10">Oct</option>
-          <option value="11">Nov</option>
-          <option value="12">Dec</option>
-        </select>
-      </div>
+      <CustomTable data={filteredData} />
     </div>
   );
 };

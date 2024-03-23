@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Table from "./Table";
 import Statitics from "./Statitics";
 import Option from "./Option";
 import BarCharts from "./BarCharts";
@@ -26,7 +25,6 @@ const Body = () => {
         </h4>
       </div>
       <Option/>
-      <Table data={info} />
       <Statitics data={info} />
       <div className="flex flex-wrap mt-10"> 
       <BarCharts/>

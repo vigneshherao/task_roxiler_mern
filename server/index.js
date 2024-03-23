@@ -34,12 +34,87 @@ app.get("/list",async(req,res)=>{
 })
 
 
+app.get("/list/month", async (req, res) => {
+  try {
+      // Parse query parameter for selected month (e.g., 'month=11' for November)
+      const selectedMonth = parseInt(req.query.month);
+      console.log(selectedMonth);
+      
+      // Calculate start and end dates for the selected month
+      const startDate = new Date(new Date().getFullYear(), selectedMonth - 1, 1); // Note: Month is zero-based
+      const endDate = new Date(new Date().getFullYear(), selectedMonth, 0);
+
+      // Fetch the list of items sold in the selected month
+      const items = await RoxilerData.find({
+          dateOfSale: { $gte: startDate, $lte: endDate }
+      });
+
+      res.json(items);
+  } catch (error) {
+      console.error("Error:", error.message);
+      res.status(500).send("Internal Server Error");
+  }
+});
+
+
+
+
+app.get('/statistics', async (req, res) => {
+  try {
+    // Parse query parameter for selected month (e.g., 'month=11' for November)
+    const selectedMonth = parseInt(req.query.month);
+    console.log(selectedMonth)
+    
+    // Calculate start and end dates for the selected month
+    const startDate = new Date(new Date().getFullYear(), selectedMonth - 1, 1); // Note: Month is zero-based
+    const endDate = new Date(new Date().getFullYear(), selectedMonth, 0);
+
+    // Fetch total sale amount of selected month
+    const totalSaleAmount = await RoxilerData.aggregate([
+      {
+        $match: {
+          dateOfSale: { $gte: startDate, $lte: endDate },
+          sold: true
+        }
+      },
+      {
+        $group: {
+          _id: null,
+          totalSaleAmount: { $sum: '$price' }
+        }
+      }
+    ]);
+
+    // Fetch total number of sold items of selected month
+    const totalSoldItems = await RoxilerData.countDocuments({
+      dateOfSale: { $gte: startDate, $lte: endDate },
+      sold: true
+    });
+
+    // Fetch total number of not sold items of selected month
+    const totalNotSoldItems = await RoxilerData.countDocuments({
+      dateOfSale: { $gte: startDate, $lte: endDate },
+      sold: false
+    });
+
+    // Send the statistics as JSON response
+    res.json({
+      totalSaleAmount: totalSaleAmount.length > 0 ? totalSaleAmount[0].totalSaleAmount : 0,
+      totalSoldItems,
+      totalNotSoldItems
+    });
+  } catch (err) {
+    // Handle errors
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
 
 app.get("/bar-chart", async (req, res) => {
     try {
         const selectedMonth =parseInt(req.query.month); // Assuming the month is set directly to 11 (November)
-
-        console.log(selectedMonth);
     
         // Construct the date range for the selected month
         const startDate = new Date(new Date().getFullYear(), selectedMonth - 1, 1); // Start of selected month
