@@ -26,6 +26,7 @@ async function main() {
 
 app.get("/initData",async (req,res)=>{
     try {
+        RoxilerData.deleteMany({});
         const data = await fetch("https://s3.amazonaws.com/roxiler.com/product_transaction.json");
         const roxilerData = await data.json();
         await RoxilerData.insertMany(roxilerData).then((res)=>console.log(res)).catch((err)=>console.log(err));
