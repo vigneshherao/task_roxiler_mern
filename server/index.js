@@ -6,8 +6,9 @@ const RoxilerData = require("./models/roxilerModel");
 const cors = require('cors')
 require('dotenv').config()
 
-app.use(cors())
 
+app.use(cors());
+app.options('*', cors());
 
 const dbUrl = process.env.ATLASDBURL;
 main().then(()=>console.log("db connected")).catch(err => console.log(err));
