@@ -12,7 +12,7 @@ const PieCharts = () => {
   }, []);
 
   const fetchData = async () => {
-    const response = await fetch("http://localhost:3000/pie-chart?month=7");
+    const response = await fetch("https://task-roxiler-mern.onrender.com/pie-chart?month=7");
       const data = await response.json();
       const formattedData = Object.entries(data).map(([label, value]) => ({
         name: label,

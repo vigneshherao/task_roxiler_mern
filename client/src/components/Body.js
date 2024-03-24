@@ -12,7 +12,7 @@ const Body = () => {
   }, []);
 
   const fetchData = async () => {
-    const response = await fetch("/list");
+    const response = await fetch("https://task-roxiler-mern.onrender.com/list");
     const datajson = await response.json();
     setInfo(datajson);
   };
