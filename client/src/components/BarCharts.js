@@ -9,7 +9,7 @@ const BarCharts = () => {
   }, []);
 
   const fetchData = async () => {
-    const response = await fetch("http://localhost:3000/bar-chart?month=7");
+    const response = await fetch("https://roxiler-vignesh.onrender.com/bar-chart?month=7");
     const datajson = await response.json();
     const dataArray = Object.entries(datajson);
     dataArray.sort(
