@@ -14,7 +14,7 @@ app.use(cors({
 app.options('*', cors());
 
 const dbUrl = process.env.ATLASDBURL;
-
+main().then(()=>console.log("db connected")).catch(err => console.log(err));
 async function main() {
     try {
         await mongoose.connect(dbUrl);
