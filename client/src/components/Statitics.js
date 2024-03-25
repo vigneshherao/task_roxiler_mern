@@ -7,15 +7,15 @@ const Statitics = ({ data }) => {
       <div className=" bg-yellow-100 py-2 px-4 mt-2 rounded-xl">
         <div className="flex justify-between">
           <p>Total Sale</p>
-          <p>100000</p>
+          <p>{data.totalSaleAmount}</p>
         </div>
         <div className="flex justify-between">
           <p>Total Sold Item</p>
-          <p>55</p>
+          <p>{data.totalSoldItems}</p>
         </div>
         <div className="flex justify-between">
           <p>Total Not Sold Item</p>
-          <p>15</p>
+          <p>{data.totalNotSoldItems}</p>
         </div>
       </div>
     </div>

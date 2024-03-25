@@ -1,32 +1,13 @@
 import React from "react";
 import { PieChart, Pie, Legend, Tooltip} from "recharts";
-import { useState,useEffect } from "react";
 
-const PieCharts = () => {
-
-
-  const [pieinfo, setPieInfo] = useState([]);
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    const response = await fetch("https://task-roxiler-mern.onrender.com/pie-chart?month=7");
-      const data = await response.json();
-      const formattedData = Object.entries(data).map(([label, value]) => ({
-        name: label,
-        value: value
-      }));
-      setPieInfo(formattedData);
-  };
-
+const PieCharts = ({data}) => {
   return (
     <div>
       <h2 className="font-bold text-center">Pie Charts</h2>
       <PieChart width={400} height={400}>
       <Pie
-          data={pieinfo}
+          data={data}
           dataKey="value"
           nameKey="name"
           cx="50%"

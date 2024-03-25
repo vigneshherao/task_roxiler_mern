@@ -1,3 +1,4 @@
+import { Tooltip } from "@mui/material";
 import React from "react";
 
 const TableRow = ({ item }) => {
@@ -5,8 +6,8 @@ const TableRow = ({ item }) => {
     <>
       <tr className="text-center">
         <td className="border border-black font-thin">{item.id}</td>
-        <td className="border border-black font-sans">{item.title.slice(0,30) +"..."}</td>
-        <td className="border border-black font-thin">{item.description.slice(0, 20)}</td>
+        <td className="border border-black font-sans"><Tooltip title={item.title}>{item.title.slice(0,30) +"..."}</Tooltip></td>
+        <td className="border border-black font-thin"><Tooltip title={item.description}>{item.title.slice(0,30) +"..."}</Tooltip></td>
         <td className="border border-black font-thin">{Math.floor(item.price)}</td>
         <td className="border border-black font-thin">{item.category}</td>
         <td className="border border-black font-thin">{item.sold ? "true" : "false"}</td>

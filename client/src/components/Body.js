@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Statitics from "./Statitics";
 import Option from "./Option";
-import BarCharts from "./BarCharts";
-import PieCharts from "./PieCharts";
 
 const Body = () => {
   const [info, setInfo] = useState([]);
@@ -24,12 +21,7 @@ const Body = () => {
           Transaction Dashboard
         </h4>
       </div>
-      <Option/>
-      <Statitics data={info} />
-      <div className="flex flex-wrap mt-10"> 
-      <BarCharts/>
-      <PieCharts/>
-      </div>
+      <Option />
     </div>
   );
 };
